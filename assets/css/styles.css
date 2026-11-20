@@ -7,7 +7,6 @@
 }
 
 /* ---------- Color schemes ---------- */
-:root,
 [data-scheme="xenon"] {
   --bg: #f3f5f7;
   --surface: #ffffff;
@@ -36,6 +35,7 @@
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 10px 30px rgba(0, 0, 0, .25);
   color-scheme: dark;
 }
+:root,
 [data-scheme="forest"] {
   --bg: #f3f4ef;
   --surface: #ffffff;
@@ -205,8 +205,42 @@ section.block { padding: 96px 0; scroll-margin-top: 64px; }
   position: relative; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden;
   background: var(--surface); box-shadow: var(--shadow); border: 1px solid var(--line);
 }
-.thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
-.card:hover .thumb img, .card:focus-visible .thumb img { transform: scale(1.04); }
+.thumb .face { position: absolute; inset: 0; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Card flip: the back shows a short description of the project and my role */
+.thumb.flip { overflow: visible; background: none; border: 0; box-shadow: none; perspective: 1200px; }
+.thumb.flip .face {
+  border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.thumb.flip .front { background: var(--surface); }
+.thumb.flip .back {
+  transform: rotateY(-180deg);
+  display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+  padding: clamp(18px, 2.2vw, 26px); background: var(--accent); color: var(--accent-ink); border-color: var(--accent);
+}
+.thumb.flip .back p { margin: 0; font-size: 16px; line-height: 1.5; font-weight: 500; }
+.thumb.flip .back .more { display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; }
+.thumb.flip .back .more svg { width: 16px; height: 16px; }
+@media (hover: hover) {
+  .card:hover .thumb.flip .front { transform: rotateY(180deg); }
+  .card:hover .thumb.flip .back { transform: rotateY(0deg); }
+}
+.card:focus-visible .thumb.flip .front { transform: rotateY(180deg); }
+.card:focus-visible .thumb.flip .back { transform: rotateY(0deg); }
+@media (min-width: 961px) and (max-width: 1180px) { .thumb.flip .back p { font-size: 15px; } }
+
+/* Logo cover */
+.cover-logo {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; gap: 4%;
+  background: #fff; padding: 0 7%; container-type: inline-size;
+}
+.cover-logo img { width: auto; height: 40%; object-fit: contain; }
+.cover-logo span {
+  color: #0010a8; font-size: 7.4cqw; font-weight: 800; font-variation-settings: "wdth" 112; letter-spacing: -.01em; white-space: nowrap;
+}
 .card h3 {
   margin-top: 16px; font-size: 21px; font-variation-settings: "wdth" 108; font-weight: 700;
   text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color .2s;
@@ -314,6 +348,10 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 
 .gallery { margin-top: 72px; }
 .gallery h2 { font-size: 22px; font-variation-settings: "wdth" 110; margin-bottom: 20px; }
+.gallery-text { color: var(--muted); max-width: 66ch; margin: -8px 0 20px; }
+.gallery + .gallery { margin-top: 56px; }
+.gallery-grid.even .media { aspect-ratio: 4 / 3; background: #fff; }
+.gallery-grid.even .media img { height: 100%; max-height: none; object-fit: contain; padding: 6%; }
 .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
 .gallery-grid figure { margin: 0; }
 .gallery-grid figure.wide { grid-column: span 2; }
@@ -380,7 +418,9 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .hero-in > *, .view-enter { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
-  .thumb img { transition: none; }
+  .thumb.flip .face { transition: opacity .2s; transform: none !important; }
+  .thumb.flip .back { opacity: 0; }
+  .card:hover .thumb.flip .back, .card:focus-visible .thumb.flip .back { opacity: 1; }
 }
 
 /* Resume button inside the nav keeps button colors */

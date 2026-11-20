@@ -2,9 +2,9 @@
   var SITE = window.SITE, PROJECTS = window.PROJECTS, CATEGORIES = window.CATEGORIES;
   var app = document.getElementById("app");
   var THEMES = [
+    { id: "forest", name: "Forest", swatch: "linear-gradient(135deg,#f3f4ef 50%,#2d5a39 50%)" },
     { id: "xenon", name: "Xenon", swatch: "linear-gradient(135deg,#f3f5f7 50%,#4a52d9 50%)" },
     { id: "plume", name: "Plume", swatch: "linear-gradient(135deg,#0c1220 50%,#a3adff 50%)" },
-    { id: "forest", name: "Forest", swatch: "linear-gradient(135deg,#f3f4ef 50%,#2d5a39 50%)" },
     { id: "blueprint", name: "Blueprint", swatch: "linear-gradient(135deg,#163a66 50%,#ffd166 50%)" }
   ];
   var flow = null, revealObs = null, homeScroll = 0, activeFilter = "all";
@@ -26,12 +26,13 @@
 
   function cover(p) {
     if (p.cover.wordmark) return '<div class="cover-word">' + esc(p.cover.wordmark) + "</div>";
+    if (p.cover.logo) return '<div class="cover-logo"><img src="' + esc(p.cover.logo) + '-sm.webp" alt="" loading="lazy" decoding="async">' + (p.cover.label ? "<span>" + esc(p.cover.label) + "</span>" : "") + "</div>";
     return '<img src="' + esc(p.cover.src) + '-sm.webp" alt="" loading="lazy" decoding="async" style="object-position:' + esc(p.cover.pos || "50% 50%") + '">';
   }
 
   /* ---------- theme ---------- */
   function applyTheme(id) {
-    if (!THEMES.some(function (t) { return t.id === id; })) id = "xenon";
+    if (!THEMES.some(function (t) { return t.id === id; })) id = THEMES[0].id;
     document.documentElement.setAttribute("data-scheme", id);
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--bg").trim());
@@ -80,7 +81,9 @@
   /* ---------- home ---------- */
   function cardHTML(p, i) {
     return '<a class="card reveal" style="--d:' + (i % 3) * 90 + 'ms" href="#project-' + esc(p.slug) + '" data-cat="' + esc(p.category) + '">' +
-      '<div class="thumb">' + cover(p) + "</div>" +
+      '<div class="thumb' + (p.blurb ? " flip" : "") + '"><div class="face front">' + cover(p) + "</div>" +
+        (p.blurb ? '<div class="face back"><p>' + esc(p.blurb) + '</p><span class="more">View project<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div>' : "") +
+      "</div>" +
       "<h3>" + esc(p.shortTitle || p.title) + "</h3>" +
       '<p class="meta"><span>' + esc(p.role) + "</span><span>" + esc(p.dates) + "</span></p>" +
       "</a>";
@@ -134,7 +137,7 @@
 
       '<section class="block contact" id="contact" aria-labelledby="contact-h">' +
         '<div class="wrap reveal">' +
-          '<div class="section-head" style="margin-bottom:20px"><div><h2 id="contact-h">Get in touch</h2><p>Open to Summer 2027 mechanical and aerospace engineering internships.</p></div></div>' +
+          '<div class="section-head" style="margin-bottom:20px"><div><h2 id="contact-h">Get in touch</h2><p>' + esc(SITE.contactLine) + '</p></div></div>' +
           '<a class="big" href="mailto:' + esc(c.email) + '">' + esc(c.email) + "</a>" +
           (c.phone ? '<p class="phone"><a href="tel:' + esc(c.phone.replace(/[^\d+]/g, "")) + '">' + esc(c.phone) + "</a></p>" : "") +
           '<div class="contact-row">' +
@@ -175,12 +178,21 @@
     if (flow) { flow.stop(); flow = null; }
 
     var spec = [["Role", p.role], ["Dates", p.dates], ["Location", p.location], ["Type", p.type]].filter(function (r) { return r[1]; });
-    var gallery = (p.media || []).map(function (m, k) {
+    var allMedia = [];
+    function galleryHTML(list) {
+      return (list || []).map(function (m) {
+      var k = allMedia.push(m) - 1;
       var cls = m.wide ? ' class="wide"' : "";
       if (m.type === "video") {
         return "<figure" + cls + '><video controls playsinline preload="none" poster="' + esc(m.poster || "") + '"><source src="' + esc(m.src) + '" type="video/mp4"></video><figcaption>' + esc(m.caption) + "</figcaption></figure>";
       }
       return "<figure" + cls + '><button type="button" class="media" data-k="' + k + '" aria-label="Enlarge image: ' + esc(m.caption) + '"><img src="' + esc(m.src) + (m.wide ? ".webp" : "-sm.webp") + '" alt="' + esc(m.caption) + '" loading="lazy" decoding="async"></button><figcaption>' + esc(m.caption) + "</figcaption></figure>";
+      }).join("");
+    }
+    var gallery = galleryHTML(p.media);
+    var extra = (p.galleries || []).map(function (g) {
+      var items = galleryHTML(g.media);
+      return items ? '<section class="gallery" aria-label="' + esc(g.title) + '"><h2>' + esc(g.title) + "</h2>" + (g.text ? '<p class="gallery-text">' + esc(g.text) + "</p>" : "") + '<div class="gallery-grid even">' + items + "</div></section>" : "";
     }).join("");
 
     app.innerHTML =
@@ -204,6 +216,7 @@
             (p.docs || []).map(function (d) { return '<a class="doc-link" href="' + esc(d.href) + '" target="_blank" rel="noopener">' + esc(d.label) + icon.doc + "</a>"; }).join("") +
           "</aside>" : "") +
         "</div>" +
+        extra +
         (gallery ? '<section class="gallery" aria-label="Photos and videos"><h2>Photos and videos</h2><div class="gallery-grid">' + gallery + "</div></section>" : "") +
         '<nav class="pager" aria-label="More projects">' +
           '<a href="#project-' + esc(prev.slug) + '"><small>Previous</small><strong>' + esc(prev.shortTitle || prev.title) + "</strong></a>" +
@@ -213,7 +226,7 @@
 
     document.title = p.title + " | " + SITE.name;
     app.querySelectorAll(".gallery .media").forEach(function (b) {
-      b.addEventListener("click", function () { openLightbox(p.media[+b.dataset.k], b); });
+      b.addEventListener("click", function () { openLightbox(allMedia[+b.dataset.k], b); });
     });
     window.scrollTo(0, 0);
   }

@@ -11,7 +11,7 @@ file, add media, check the result, then commit and push.
   categories (`CATEGORIES`) and every project (`PROJECTS`). Most changes happen here.
 - `assets/js/app.js` renders the home page and project pages (hash routes like `#project-<slug>`).
 - `assets/js/flow.js` hero background animation (potential flow past a cylinder).
-- `assets/css/styles.css` styles and the four color schemes (`xenon`, `plume`, `forest`, `blueprint`).
+- `assets/css/styles.css` styles and the four color schemes (`forest` default and first in the picker, then `xenon`, `plume`, `blueprint`).
 - `assets/img/` images as `name.webp` (max 1800 px) + `name-sm.webp` (max 760 px).
 - `assets/video/` H.264 MP4s (720 px wide) + a `.jpg` poster frame each.
 - `assets/docs/` resume PDF and any project reports.
@@ -30,6 +30,7 @@ file, add media, check the result, then commit and push.
   slug: "kebab-case-unique",          // URL: #project-<slug>
   title: "Full project title",
   shortTitle: "Card title",           // shown on the home grid
+  blurb: "1-2 sentences: what it is and my role.",  // back of the card on hover
   category: "team",                   // must match an id in CATEGORIES
   org: "Team or class, ASU",
   role: "Dean's role",
@@ -37,7 +38,7 @@ file, add media, check the result, then commit and push.
   location: "Tempe, Arizona",
   type: "Short project type",
   tags: ["Skill", "Tool"],            // 3 to 5
-  cover: { src: "assets/img/name", pos: "50% 50%" },  // or { wordmark: "Text" } if no photo
+  cover: { src: "assets/img/name", pos: "50% 50%" },  // or { logo: "assets/img/name", label: "Name" } or { wordmark: "Text" }
   keyFigure: { value: "202.828 Pa", label: "What the number means" },  // or null
   summary: "One paragraph on what the project is.",
   did: ["What Dean personally did, one item each."],
@@ -46,6 +47,9 @@ file, add media, check the result, then commit and push.
   media: [
     { type: "image", src: "assets/img/name", caption: "Caption", wide: true },  // wide = spans 2 columns
     { type: "video", src: "assets/video/name.mp4", poster: "assets/video/name.jpg", caption: "Caption" }
+  ],
+  galleries: [                        // optional extra titled image sections, shown above "Photos and videos"
+    { title: "Section title", text: "One line of context.", media: [ /* same shape as media */ ] }
   ],
   docs: [{ label: "Project report (PDF)", href: "assets/docs/file.pdf" }]
 }
@@ -78,7 +82,7 @@ Keep each video under ~10 MB. GitHub rejects files over 100 MB.
   seamless, furthermore, in conclusion, underscore, paradigm, critically,
   paramount, transforming, passionate about, wear many hats, hit the ground running.
 - Capitalize Hall Effect and Xenon.
-- Experimental Propulsion Club role is "Member, Propulsion and Manufacturing Teams".
+- Experimental Propulsion Club role is "Propulsion Team Member" (propulsion only, never manufacturing).
   Wheels2Africa role is "Mechanical Research Lead". Dean did not do coding on Wheels2Africa.
 - Only state facts Dean or his files gave you.
 
@@ -91,6 +95,11 @@ Keep each video under ~10 MB. GitHub rejects files over 100 MB.
    GitHub Pages redeploys in about a minute.
 
 ## Notes
+
+- Dean's school docs, resumes and project files live in `C:/Users/Dean/Desktop/ASU` (resumes in `Resumes/`,
+  class work in `Semesters/`). Check them for facts before asking, but site wording rules above still win
+  (e.g. resumes may still say "Propulsion and Manufacturing Teams").
+- `SITE.contactLine` is the line under "Get in touch".
 
 - Some project reports (Snowboard, Lamp, Shock Absorber, Accelerometer, T.R.A.M.)
   still link to PDFs hosted on the old Wix site. If Dean provides the PDFs, put

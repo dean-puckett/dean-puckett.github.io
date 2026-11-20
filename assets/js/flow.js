@@ -11,11 +11,11 @@
     var U = 1;
     var fixed = { x: 0, y: 0, r: 0 };
     var cursor = { x: 0, y: 0, tx: 0, ty: 0, r: 0, active: false };
-    var color = "74,82,217", alpha = 0.55;
+    var color = "45,90,57", alpha = 0.55;
 
     function readColor() {
       var cs = getComputedStyle(document.documentElement);
-      color = (cs.getPropertyValue("--flow") || "74,82,217").trim();
+      color = (cs.getPropertyValue("--flow") || "45,90,57").trim();
       alpha = parseFloat(cs.getPropertyValue("--flow-alpha")) || 0.55;
     }
 

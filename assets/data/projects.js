@@ -8,19 +8,19 @@
 
 window.SITE = {
   name: "Dean Puckett",
-  // Pick the color scheme: "xenon", "plume", "forest" or "blueprint".
-  theme: "xenon",
+  // Pick the color scheme: "forest", "xenon", "plume" or "blueprint".
+  theme: "forest",
   // Shows the scheme picker in the corner. Turn off once you've chosen.
   showThemePicker: true,
 
-  headline: "Mechanical engineer who takes designs from the CAD model to the shop floor.",
+  headline: "Mechanical engineering student at ASU who designs, analyzes, and builds hardware.",
   intro:
     "I'm a senior at Arizona State University in the accelerated B.S.E./M.S. program. My work spans fluid systems analysis for a student Hall Effect thruster, assistive devices built for real users, and research that puts CFD data into virtual reality.",
 
   facts: [
     { label: "GPA", value: "4.0" },
     { label: "B.S.E. Mechanical Engineering", value: "May 2027" },
-    { label: "Accelerated M.S.", value: "May 2028" },
+    { label: "Accelerated M.S. Mechanical Engineering", value: "May 2028" },
     { label: "Work authorization", value: "U.S. citizen, ITAR eligible" }
   ],
 
@@ -41,6 +41,8 @@ window.SITE = {
     { title: "Dean's List", detail: "Every semester", date: "Fall 2023 to Spring 2026" }
   ],
 
+  contactLine: "Open to networking and engineering opportunities.",
+
   contact: {
     email: "deanopuckett@gmail.com",
     phone: "(424) 744-1543",
@@ -48,7 +50,7 @@ window.SITE = {
     links: [
       { label: "LinkedIn", href: "https://www.linkedin.com/in/deanpuckett/" },
       { label: "Instagram", href: "https://www.instagram.com/dean.puckett/" },
-      { label: "ASU Forge", href: "https://forge.engineering.asu.edu/participant/puckett-dean/" }
+      { label: "FURI Research | ASU", href: "https://forge.engineering.asu.edu/participant/puckett-dean/" }
     ]
   }
 };
@@ -67,9 +69,10 @@ window.PROJECTS = [
     slug: "experimental-propulsion-club",
     title: "Xenon Feed System for a Hall Effect Thruster",
     shortTitle: "Experimental Propulsion Club",
+    blurb: "A student team building a Hall Effect thruster for a NASA vacuum chamber test. On the propulsion team, I run the fluids analysis for the Xenon feed system, and my MATLAB results led the team to resize the injector manifold holes.",
     category: "team",
     org: "Experimental Propulsion Club, ASU",
-    role: "Member, Propulsion and Manufacturing Teams",
+    role: "Propulsion Team Member",
     dates: "January 2026 to present",
     location: "Tempe, Arizona",
     type: "Student electric propulsion development",
@@ -81,7 +84,7 @@ window.PROJECTS = [
     did: [
       "Own the fluids analysis for the Xenon feed system: getting high-pressure Xenon from the storage tank, through a PRAXAIR 2010 high-purity pressure regulator and the plumbing, into the injector manifold.",
       "The system has to hold a calculated 202.828 Pa with a low, constant flow. I worked mass flow rate, pressure, and temperature through each segment of the line by hand and in Excel, then checked the hand numbers with a MATLAB model of the full line.",
-      "On the manufacturing side, I model parts in SOLIDWORKS, help with tolerancing and design iteration, 3D printed thruster prototypes, and support fabrication of parts for propulsion testing."
+      "I also model feed-system parts in SOLIDWORKS, help with tolerancing and design iteration, and work with the manufacturing and structures sub-teams on integration. I 3D printed thruster prototypes and support fabrication of parts for propulsion testing."
     ],
     outcome:
       "My results changed the hardware. The team resized the inlet holes on the injector manifold ahead of the vacuum chamber test.",
@@ -92,12 +95,24 @@ window.PROJECTS = [
       { type: "image", src: "assets/img/epc-regulator", caption: "PRAXAIR 2010 high-purity pressure regulator that sets the Xenon inlet pressure (manufacturer image)" },
       { type: "image", src: "assets/img/epc-logo", caption: "Experimental Propulsion Club logo" }
     ],
+    galleries: [
+      {
+        title: "Injector manifold",
+        text: "The three parts of the injector manifold, modeled in SOLIDWORKS. My MATLAB flow calculations changed the size of the holes in the manifold before the vacuum chamber test.",
+        media: [
+          { type: "image", src: "assets/img/epc-injector-1", caption: "Injector manifold, part 1 of 3" },
+          { type: "image", src: "assets/img/epc-injector-2", caption: "Injector manifold, part 2 of 3" },
+          { type: "image", src: "assets/img/epc-injector-3", caption: "Injector manifold, part 3 of 3" }
+        ]
+      }
+    ],
     docs: []
   },
   {
     slug: "adaptive-snowboard",
     title: "Adaptive Snowboard Shock System",
     shortTitle: "Adaptive Snowboard",
+    blurb: "An attachable shock system that takes landing loads off the hips and back of Zach Sherman, a bilateral above-the-knee amputee. As prototyping lead, I turned the design into hardware and led fabrication and testing.",
     category: "team",
     org: "EPICS, ASU",
     role: "Prototyping Lead",
@@ -135,6 +150,7 @@ window.PROJECTS = [
     slug: "wheels2africa",
     title: "Wheels2Africa Motorized Wheelchair Attachment",
     shortTitle: "Wheels2Africa",
+    blurb: "A low-cost electric wheel that lets children with cerebral palsy in Johannesburg drive their own wheelchairs. As mechanical research lead, I designed the wheel frame and mount and presented the prototype in South Africa.",
     category: "team",
     org: "EPICS, ASU",
     role: "Mechanical Research Lead",
@@ -170,6 +186,7 @@ window.PROJECTS = [
     slug: "furi-vr-cfd",
     title: "Virtual Reality Visualization of CFD Data",
     shortTitle: "FURI Research",
+    blurb: "Research that puts layered CFD velocity data into virtual reality so 3D flow is easier to read. I automated the VisIt runs in Python and built the VR scene in Unity.",
     category: "research",
     org: "Fulton Undergraduate Research Initiative, ASU",
     role: "Undergraduate Researcher, mentor Dr. Mohamed Kasbaoui (SEMTE)",
@@ -195,13 +212,16 @@ window.PROJECTS = [
       { type: "image", src: "assets/img/furi-forge", caption: "Presenting at the Fulton Forge symposium" },
       { type: "image", src: "assets/img/furi-poster", caption: "Research poster presented at Fulton Forge", wide: true }
     ],
-    docs: []
+    docs: [
+      { label: "Fulton Forge research page (ASU)", href: "https://forge.engineering.asu.edu/participant/puckett-dean/" }
+    ]
   },
   {
     slug: "swing-arm-desk-lamp",
     title: "Swing Arm Desk Lamp",
     shortTitle: "Team Light Work",
-    category: "course",
+    blurb: "A counterbalanced desk lamp on a spring-loaded parallelogram linkage. I modeled and simulated the linkage and springs in SOLIDWORKS and showed a factor of safety above 5.",
+    category: "team",
     org: "MEE 342, Principles of Mechanical Design, ASU",
     role: "Team member (Team Light Work)",
     dates: "January 2026 to May 2026",
@@ -234,6 +254,7 @@ window.PROJECTS = [
     slug: "c-class-shock-absorber",
     title: "C-Class Shock Absorber Assembly",
     shortTitle: "C-Class Shock Absorber",
+    blurb: "A full SOLIDWORKS shock absorber assembly for a Mercedes C-Class. I modeled the core parts, cleared every interference, and produced the drawings and BOM.",
     category: "course",
     org: "MAE 214 (SOLIDWORKS), ASU",
     role: "Student Design Engineer (hypothetical client: Mercedes-Benz USA)",
@@ -265,6 +286,7 @@ window.PROJECTS = [
     slug: "mechanical-accelerometer",
     title: "Mechanical Accelerometer",
     shortTitle: "Mechanical Accelerometer",
+    blurb: "A purely mechanical accelerometer that reads -1.2g to +1.2g. As team lead, I took it from the physics to the build and calibrated it by testing.",
     category: "course",
     org: "Arizona State University",
     role: "Team Lead",
@@ -296,6 +318,7 @@ window.PROJECTS = [
     slug: "tram-buggy",
     title: "T.R.A.M. Buggy: Autonomous Rescue Rover",
     shortTitle: "Robot Rescue: T.R.A.M. Buggy",
+    blurb: "An autonomous four-wheel-drive buggy that maps simulated Martian terrain and signals for help if it flips. As team lead, I ran integration, wiring, and control logic on a $63 budget.",
     category: "course",
     org: "Arizona State University",
     role: "Team Lead",
@@ -329,6 +352,7 @@ window.PROJECTS = [
     slug: "squeezedocs",
     title: "SqueezeDocs, Inc.",
     shortTitle: "SqueezeDocs",
+    blurb: "An AI document-automation startup I co-founded. I write the product requirements and validate the AI workflows behind a HIPAA-compliant document pipeline.",
     category: "startup",
     org: "SqueezeDocs, Inc.",
     role: "Co-Founder",
@@ -336,7 +360,7 @@ window.PROJECTS = [
     location: "",
     type: "AI document-automation startup",
     tags: ["Product requirements", "Test procedures", "AI workflows"],
-    cover: { wordmark: "SqueezeDocs" },
+    cover: { logo: "assets/img/squeezedocs-logo", label: "SqueezeDocs" },
     keyFigure: null,
     summary:
       "An AI document-automation startup I co-founded.",
@@ -353,6 +377,7 @@ window.PROJECTS = [
     slug: "wearable-tech",
     title: "The Future of Wearable Tech",
     shortTitle: "The Future of Wearable Tech",
+    blurb: "A research concept for a sensor shirt and brain chip aimed at depression. As project lead, I guided the team's research and presented the poster.",
     category: "research",
     org: "Grand Challenges Scholars Program, ASU",
     role: "Project Lead",
@@ -381,6 +406,7 @@ window.PROJECTS = [
     slug: "vex-robotics",
     title: "VEX Robotics, Team 62019S",
     shortTitle: "VEX Robotics",
+    blurb: "A competition robot for the 2021-2022 Tipping Point game. As team lead and project manager, I ran the engineering cycle and designed a 4-bar linkage that lifts Mobile Goals.",
     category: "highschool",
     org: "Palos Verdes Institute of Technology",
     role: "Team Lead and Project Manager",
