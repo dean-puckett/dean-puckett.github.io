@@ -30,7 +30,7 @@ window.SITE = {
   ],
 
   skills: [
-    { group: "Analysis and software", items: ["SOLIDWORKS", "ANSYS", "MATLAB", "Python", "C++", "C#", "Unity", "VisIt", "GD&T", "Excel"] },
+    { group: "Analysis and software", items: ["SOLIDWORKS", "ANSYS", "MATLAB", "Python", "C++", "C#", "Unity Game Engine", "VisIt - CFD Visualization Software", "Geometric Dimensioning and Tolerancing (GD&T)", "Excel"] },
     { group: "Fabrication", items: ["CNC machining", "Metal shop", "Carbon fiber 3D printing", "Rapid prototyping", "DFM", "Laser cutting"] }
   ],
 

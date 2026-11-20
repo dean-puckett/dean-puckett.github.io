@@ -213,7 +213,7 @@ section.block { padding: 96px 0; scroll-margin-top: 64px; }
 .thumb.flip .face {
   border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow);
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  transition: transform .6s cubic-bezier(.2,.7,.2,1);
+  transition: transform .8s cubic-bezier(.2,.7,.2,1);
 }
 .thumb.flip .front { background: var(--surface); }
 .thumb.flip .back {
